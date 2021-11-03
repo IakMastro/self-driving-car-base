@@ -1,0 +1,3 @@
+[submodule "self-driving-car-camera"]
+	path = self-driving-car-camera
+	url = https://github.com/Panagiotis-INS/self-driving-car-camera.git
