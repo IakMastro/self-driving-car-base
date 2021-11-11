@@ -1,3 +1,6 @@
 [submodule "self-driving-car-camera"]
 	path = self-driving-car-camera
 	url = https://github.com/Panagiotis-INS/self-driving-car-camera.git
+[submodule "crash-bot"]
+	path = crash-bot
+	url = https://git.sexycoders.org/SexyCoders/crash-bot
