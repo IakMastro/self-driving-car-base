@@ -1,10 +1,25 @@
 version: '3.9'
 
 services:
-  sonar:
-    image: node:17-alpine3.13
-    container_name: car_sonar
-    hostname: sonar
+  sonar_api:
+    build: sonar_api
+    container_name: sonar_api
+    hostname: sonar_api
+    volumes:
+      - ./sonar_api:/sonar_api
+    depends_on:
+      - fluentd
+      - mongo
+      - redis
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: log.sonar
+    networks:
+      - mongonet
+      - redisnet
+      - cameranet
 
   camera_api:
     build: camera_api
@@ -77,6 +92,8 @@ services:
       - mongo
     networks:
       - mongonet
+      - cameranet
+      - sonarnet
 
 networks:
   mongonet:
@@ -85,3 +102,5 @@ networks:
     name: redisnet
   cameranet:
     name: cameranet
+  sonarnet:
+    name: sonarnet
