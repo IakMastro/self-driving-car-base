@@ -6,10 +6,29 @@ services:
     container_name: car_sonar
     hostname: sonar
 
-  camera:
-    image: python:3.11.0a1-alpine3.14
-    container_name: car_camera
-    hostname: camera
+  camera_api:
+    build: camera_api
+    container_name: camera_api
+    hostname: camera_api
+    volumes:
+      - ./camera_api:/camera_api
+    environment:
+      FLASK_APP: app
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_ENV: development
+    depends_on:
+      - fluentd
+      - redis
+      - mongo
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: log.camera
+    networks:
+      - mongonet
+      - redisnet
+      - cameranet
 
   mongoexpress:
     image: mongo-express:0.54.0
@@ -50,6 +69,8 @@ services:
   fluentd:
     build: logs
     container_name: fluentd
+    ports:
+      - "24224:24224"
     volumes:
       - ./logs/conf:/fluentd/etc
     depends_on:
@@ -62,3 +83,5 @@ networks:
     name: mongonet
   redisnet:
     name: redisnet
+  cameranet:
+    name: cameranet
