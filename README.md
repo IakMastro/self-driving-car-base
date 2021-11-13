@@ -1,31 +1,37 @@
-# Self Driving Cars
+<center> <h1> Self Driving Cars </h1> </center>
 
-This is a group project made for an Internet of Things class.
+<b>About:</b>
 
-## The Idea
+This is a group project made for the Internet of Things (IoT) class for the University of West Attica(UniWA).
 
-The idea behind the project is to make a car that can drive without any help from a human.
-The car itself consists of a Raspberry Pi, sonar sensors and a camera.
+This project is about smart/self driving cars and their inner 'smart' communication.
 
-## Requirements
+The idea behind this project is to create 2 autonomous cars that can drive themselves and use sensors such as cameras and sonars to detect and avoid objects.
 
-* Docker
-* A few Raspberry Pi Cars
-* A four sonars on each car 
-* A camera on each car
+<b>Requirements:</b>
 
-## Git repos
+- Docker
+- Docker-compose
+- 1 Raspberry Pi per car
+- 4 Sonar modules per car
+- 1 camera module for each Raspberry Pi
+- Motors, wheels and other components for the car movement
 
-* Sonar: https://git.sexycoders.org/SexyCoders/crash-bot.git
-* Camera: https://github.com/Panagiotis-INS/self-driving-car-camera.git
-* TODO: Add more repos used on the project
+<b>Git Repositories:</b>
 
-## Documentation
+- Hardware Configuration: <code>https://github.com/BlackICE-Zed/iot_2021_hardware.git</code>
+- Sonar: <code>https://git.sexycoders.org/SexyCoders/crash-bot.git</code>
+- Camera: <code>https://github.com/Panagiotis-INS/self-driving-car-camera.git</code>
+- Orchestration and Configuration: <code>https://github.com/IakMastro/self-driving-car-base.git</code>
 
-TODO: Add documentation
-
-## How to launch
+<b>Usage:</b>
+---
 
 ```sh 
 docker-compose up -d 
 ```
+
+<b>Full Documentation:</b>
+---
+
+For the full documentation read the [Documentation.adoc](https://github.com/IakMastro/self-driving-car-base/blob/main/Documentation.adoc) file.
