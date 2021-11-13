@@ -15,7 +15,7 @@ app.config['MONGO_URI'] = "mongodb://dbuser:dbpass@mongodb:27017/cars?authSource
 mongo_client = PyMongo(app)
 
 # Redis connection init
-app.config['REDIS_URL'] = "redis://dbuser:dbpass@redis:6379/0"
+app.config['REDIS_URL'] = "redis://redis:6379/0"
 redis_client = FlaskRedis(app)
 
 # Init CORS

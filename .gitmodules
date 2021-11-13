@@ -4,3 +4,6 @@
 [submodule "crash-bot"]
 	path = crash-bot
 	url = https://git.sexycoders.org/SexyCoders/crash-bot
+[submodule "iot_2021_hardware"]
+	path = iot_2021_hardware
+	url = https://github.com/BlackICE-Zed/iot_2021_hardware.git

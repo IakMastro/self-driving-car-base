@@ -73,11 +73,10 @@ services:
     networks:
       - mongonet
 
-  # TODO: Learn Redis
   redis:
-    image: redis:6.2.6-alpine
+    image: redis
     container_name: redis
-    # enviroment:
+    hostname: redis
     networks:
       - redisnet
 
