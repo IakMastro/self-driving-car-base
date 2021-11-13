@@ -23,15 +23,27 @@ The idea behind this project is to create 2 autonomous cars that can drive thems
 - Sonar: <code>https://git.sexycoders.org/SexyCoders/crash-bot.git</code>
 - Camera: <code>https://github.com/Panagiotis-INS/self-driving-car-camera.git</code>
 - Orchestration and Configuration: <code>https://github.com/IakMastro/self-driving-car-base.git</code>
+- Interface: <code>https://github.com/IakMastro/self-driving-car-interface</code>
+
+<b>Installation:</b>
+---
+
+```sh
+# If it is installed on Debian-based Linux
+./install_debian.sh
+
+# If it is installed on Arch-based Linux
+./install_arch.sh
+```
 
 <b>Usage:</b>
 ---
 
 ```sh 
-docker-compose up -d 
+./launch.sh
 ```
 
 <b>Full Documentation:</b>
 ---
 
-For the full documentation read the [Documentation.adoc](https://github.com/IakMastro/self-driving-car-base/blob/main/Documentation.adoc) file.
+For the full documentation read the [Documentation](https://github.com/IakMastro/self-driving-car-base/blob/main/docs/Documentation.adoc) file.

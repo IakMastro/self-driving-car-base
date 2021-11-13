@@ -1,49 +1,38 @@
 version: '3.9'
 
 services:
-  sonar_api:
-    build: sonar_api
-    container_name: sonar_api
-    hostname: sonar_api
+  client:
+    build: self-driving-car-interface
+    container_name: car-interface
+    hostname: car-interface
     volumes:
-      - ./sonar_api:/sonar_api
-    depends_on:
-      - fluentd
-      - mongo
-      - redis
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: log.sonar
-    networks:
-      - mongonet
-      - redisnet
-      - cameranet
-
-  camera_api:
-    build: camera_api
-    container_name: camera_api
-    hostname: camera_api
-    volumes:
-      - ./camera_api:/camera_api
+      - ./self-driving-car-interface:/app
     environment:
-      FLASK_APP: app
-      FLASK_RUN_HOST: 0.0.0.0
-      FLASK_ENV: development
+      NODE_APP: self-driving-car-interface
+      NODE_ENV: development
+    depends_on:
+      - rest
+    networks:
+      - datacenternet
+
+  rest:
+    build: api
+    container_name: rest
+    hostname: rest
+    volumes:
+      - ./api:/api
     depends_on:
       - fluentd
-      - redis
       - mongo
+      - redis
     logging:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: log.camera
+        tag: log.rest
     networks:
-      - mongonet
-      - redisnet
-      - cameranet
+      - dbnet
+      - datacenternet
 
   mongoexpress:
     image: mongo-express:0.54.0
@@ -57,7 +46,7 @@ services:
     depends_on:
       - mongo
     networks:
-      - mongonet
+      - dbnet
 
   mongo:
     image: mongo
@@ -69,14 +58,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: dbpass
       MONGO_INITDB_DATABASE: cars
     networks:
-      - mongonet
+      - dbnet
 
   redis:
     image: redis
     container_name: redis
     hostname: redis
     networks:
-      - redisnet
+      - dbnet
 
   fluentd:
     build: logs
@@ -88,16 +77,10 @@ services:
     depends_on:
       - mongo
     networks:
-      - mongonet
-      - cameranet
-      - sonarnet
+      - dbnet
 
 networks:
-  mongonet:
-    name: mongonet
-  redisnet:
-    name: redisnet
-  cameranet:
-    name: cameranet
-  sonarnet:
-    name: sonarnet
+  datacenternet:
+    name: datacenternet
+  dbnet:
+    name: dbnet

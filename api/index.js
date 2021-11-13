@@ -13,6 +13,11 @@ const mongo_client = mongoose.createConnection('mongodb://dbuser:dbpass@mongo:27
 // Redis configuration
 const redis_client = redis.createClient("redis://redis:6379/1")
 
+// Enable CORS from all the origins
+app.use(cors({
+	origin: ['http://interface']
+}))
+
 app.get("/ping", cors(), (req, res) => {
 	res.send("pong!")
 })

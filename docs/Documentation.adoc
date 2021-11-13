@@ -1,0 +1,18 @@
+= Internet of Things
+:toc:
+:toc-title:
+:source-highlighter: rouge
+:source-language: sh
+
+.Self Driving Car
+****************************************************************
+[.text-center]
+This is a group project made for a class in which an automated car can drive completely alone without any human intervention.
+****************************************************************
+
+== Contributors
+
+* Iakovos Mastrogiannopoulos, DevOps and Front End
+* Panagiotis Fiskilis, Camera and Back End
+* Sotirios Anagnostopoulos, Sonar and Back End, Main Idea
+* Panagiotis Zeritas, Raspberry Pi, Networking and Hardware
