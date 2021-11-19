@@ -1,12 +1,12 @@
-[submodule "camera"]
-	path = camera
+[submodule "self-driving-car-camera"]
+	path = self-driving-car-camera
 	url = https://github.com/Panagiotis-INS/self-driving-car-camera.git
-[submodule "sonar"]
-	path = sonar
+[submodule "crash-bot"]
+	path = crash-bot
 	url = https://git.sexycoders.org/SexyCoders/crash-bot
-[submodule "hardware"]
-	path = hardware
+[submodule "iot_2021_hardware"]
+	path = iot_2021_hardware
 	url = https://github.com/BlackICE-Zed/iot_2021_hardware.git
-[submodule "client"]
-	path = client
+[submodule "self-driving-car-interface"]
+	path = self-driving-car-interface
 	url = https://github.com/IakMastro/self-driving-car-interface
