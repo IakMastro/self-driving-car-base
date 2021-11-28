@@ -6,8 +6,7 @@ sudo pacman -Syu --noconfirm docker docker-compose
 
 echo "====> Opening docker.service"
 
-sudo systemctl start docker.service
-sudo systemctl enable docker.service
+sudo systemctl enable docker.service --now
 
 echo "====> Creating and Adding Docker group on current user"
 
