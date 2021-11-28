@@ -11,7 +11,7 @@ const port = 5000
 const mongo_client = mongoose.createConnection('mongodb://dbuser:dbpass@mongo:27017')
 
 // Redis configuration
-const redis_client = redis.createClient("redis://redis:6379/1")
+// const redis_client = redis.createClient("redis://redis:6379/1")
 
 // Enable CORS from all the origins
 app.use(cors({

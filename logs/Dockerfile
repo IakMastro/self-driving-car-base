@@ -2,6 +2,14 @@ FROM fluent/fluentd
 
 USER root
 
+WORKDIR /demo
+
+COPY demo.py .
+
+RUN apk add python3
+
+RUN mkdir /tmp/log
+
 RUN apk add --no-cache --update --virtual .build-deps \
         sudo build-base ruby-dev \
  && sudo gem install fluent-plugin-mongo \
