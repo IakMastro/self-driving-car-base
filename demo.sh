@@ -11,7 +11,7 @@ echo "Done, check mongo-express"
 echo "====> Compiling DDOS demo"
 
 docker exec gcc -o demo ddos.c -pthread -lcurl
-docker exec -it demo ./demo
+docker exec -it demo ./ddos
 
 echo "===> Checking TCP Dump"
 
