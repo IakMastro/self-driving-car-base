@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import router from './routes.js'
 
 mongoose
-	.connect("mongodb://dbuser:dbpass@172.18.0.2:27017/test?authSource=admin", {
+	.connect("mongodb://dbuser:dbpass@mongo:27017/test?authSource=admin", {
 		"useNewUrlParser": true
 	})
 	.then(() => {

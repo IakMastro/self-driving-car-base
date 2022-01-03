@@ -23,16 +23,32 @@ services:
       - ./api:/api
     depends_on:
       - fluentd
-      - mongo
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: log.rest
+    networks:
+      - dbnet
+      - datacenternet
+
+  middleware:
+    build: middleware
+    container_name: middleware
+    hostname: middleware
+    volumes:
+      - ./middleware:/api
+    depends_on:
+      - fluentd
       - redis
-    # logging:
-    #  driver: "fluentd"
-    #  options:
-    #    fluentd-address: localhost:24224
-    #    tag: log.rest
-    # networks:
-    #  - dbnet
-    #  - datacenternet
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: log.rest
+    networks:
+      - dbnet
+      - carnet
 
   demo:
     build: demo
@@ -77,20 +93,22 @@ services:
     networks:
       - dbnet
 
-  #fluentd:
-    #build: logs
-    #container_name: fluentd
-    #ports:
-      #- "24224:24224"
-    #volumes:
-      #- ./logs/conf:/fluentd/etc
-    #depends_on:
-      #- mongo
-    #networks:
-      #- dbnet
+  fluentd:
+    build: logs
+    container_name: fluentd
+    ports:
+      - "24224:24224"
+    volumes:
+      - ./logs/conf:/fluentd/etc
+    depends_on:
+      - mongo
+    networks:
+      - dbnet
 
 networks:
   datacenternet:
     name: datacenternet
   dbnet:
     name: dbnet
+  carnet:
+    name: carnet
