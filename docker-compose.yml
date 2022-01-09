@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   client:
-    build: self-driving-car-interface
+    build: app
     container_name: car-interface
     hostname: interface
     volumes:
@@ -49,16 +49,6 @@ services:
     networks:
       - dbnet
       - carnet
-
-  demo:
-    build: demo
-    container_name: demo
-    hostname: demo
-    volumes:
-      - ./demo:/demo
-    networks:
-      - dbnet
-      - datacenternet
 
   mongoexpress:
     image: mongo-express:0.54.0

@@ -39,11 +39,6 @@ The idea behind this project is to create 2 autonomous cars that can drive thems
 <b>Usage:</b>
 ---
 
-```sh 
+```sh
 ./launch.sh
 ```
-
-<b>Full Documentation:</b>
----
-
-For the full documentation read the [Documentation](https://github.com/IakMastro/self-driving-car-base/blob/main/docs/Documentation.adoc) file.
