@@ -2,7 +2,7 @@ FROM node:17-alpine3.13
 
 WORKDIR /api
 
-RUN apk add iptables net-tools nmap
+RUN apk add iptables net-tools nmap tcpdump
 
 COPY package*.json /api/
 

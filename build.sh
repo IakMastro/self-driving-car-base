@@ -1,7 +1,7 @@
-#!/bin/sh 
+#!/bin/sh
 
 echo "====> Opening Services"
-docker-compose up -d --build --force-recreate 
+docker-compose up -d --build --force-recreate
 
 echo "====> Mongo Express IP"
 mongo_express_ip=$(docker inspect mongo-express | jq '.[].NetworkSettings.Networks.dbnet.IPAddress' | sed 's/\"//g')
