@@ -6,22 +6,23 @@ const redis_client = createClient({ url: "redis://redis:6379" })
 redis_client.on('connect', () => { console.log('Redis is ready') }).on('error', (err) => { console.log('Redis Client Error', err) })
 await redis_client.connect()
 
-// router.get('/sonar', async () => {
-//   const sonar_front = redis_client.get('sonar_front')
-//   const sonar_back = redis_client.get('sonar_back')
-//   return { front: sonar_front, back: sonar_back }
-// })
-
-router.get('/sonar_front', async (req,res) => {
+router.get('/sonar_front', async (req, res) => {
   const sonar_front = redis_client.get('sonar_front').then(
-    (front) => {res.send({'front': front})}
+    (front) => res.send({'front': front})
   )
 })
 
-// router.get('/sonar_back', async () => {
-//   const sonar_back = redis_client.get('sonar_back')
-//   return { front: sonar_back }
-// })
+router.get('/sonar_back', async (req, res) => {
+  const sonar_back = redis_client.get('sonar_back').then(
+    (back) => res.send({'back': back})
+  )
+})
+
+router.get('/speed', async (req, res) => {
+  const speed = redis_client.get('speed').then(
+    (speed) => res.send({'speed': speed})
+  )
+})
 
 router.get('/', async (req, res) => {
   res.send("Hello World!")
