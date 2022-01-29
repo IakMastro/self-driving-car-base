@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.7'
 
 services:
   client:
@@ -38,6 +38,8 @@ services:
     hostname: middleware
     volumes:
       - ./middleware:/api
+    ports:
+      - 8351:8351
     depends_on:
       - fluentd
       - redis
