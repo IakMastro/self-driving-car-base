@@ -24,6 +24,27 @@ router.get('/speed', async (req, res) => {
   )
 })
 
+router.get('/sotiris', async (req, res) => {
+  const sonar_front = await redis_client.get('sonar_front').then((value) => {
+    return value
+  })
+
+  const sonar_back = await redis_client.get('sonar_back').then((value) => {
+    return value
+  })
+
+  const speed = await redis_client.get('speed').then((value) => {
+    return value
+  })
+
+  res.send({'front': sonar_front, 'back': sonar_back, 'speed': speed})
+})
+
+router.post('/camera', async (req, res) => {
+  redis_client.set('found', req.body.found)
+  redis_client.set('go', req.body.go)
+})
+
 router.get('/', async (req, res) => {
   res.send("Hello World!")
 })
