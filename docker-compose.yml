@@ -39,7 +39,7 @@ services:
     volumes:
       - ./middleware:/api
     ports:
-      - 8351:8351
+      - "8351:8351"
     depends_on:
       - fluentd
       - redis
@@ -82,6 +82,8 @@ services:
     image: redis
     container_name: redis
     hostname: redis
+    ports:
+      - "6379:6379"
     networks:
       - dbnet
 

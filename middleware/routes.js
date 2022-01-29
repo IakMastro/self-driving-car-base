@@ -1,60 +1,42 @@
 import express from 'express'
-import Post from './models/Post.js'
+import { createClient } from 'redis'
 const router = express.Router()
 
-router.get('/posts', async (req, res) => {
-  const posts = await Post.find()
-  res.send(posts)
+const redis_client = createClient({ url: "redis://redis:6379" })
+redis_client.on('connect', () => { console.log('Redis is ready') }).on('error', (err) => { console.log('Redis Client Error', err) })
+await redis_client.connect()
+
+// router.get('/sonar', async () => {
+//   const sonar_front = redis_client.get('sonar_front')
+//   const sonar_back = redis_client.get('sonar_back')
+//   return { front: sonar_front, back: sonar_back }
+// })
+
+router.get('/sonar_front', async (req,res) => {
+  const sonar_front = redis_client.get('sonar_front').then(
+    (front) => {res.send({'front': front})}
+  )
 })
 
-router.post("/posts", async (req, res) => {
-  const post = new Post({
-    title: req.body.tile,
-    content: req.body.content
-  })
+// router.get('/sonar_back', async () => {
+//   const sonar_back = redis_client.get('sonar_back')
+//   return { front: sonar_back }
+// })
 
-  await post.save()
-  res.send(post)
+router.get('/', async (req, res) => {
+  res.send("Hello World!")
 })
 
-router.get("/posts/:id", async (req, res) => {
-  try {
-    const post = await Post.findOne({ _id: req.params.id })
-    res.send(post)
-  } catch {
-    res.status(404)
-    res.send({ error: "Post doesn't exist" })
-  }
-})
+// router.post("/sonar", async (req, res) => {
+//   redis_client.set('sonar_front', req.body.front)
+//   redis_client.set('sonar_back', req.body.back)
+//   // const post = new Post({
+//   //   title: req.body.tile,
+//   //   content: req.body.content
+//   // })
 
-router.patch("/posts/:id", async (req, res) => {
-  try {
-    const post = await Post.findOne({ _id: req.params.id })
-
-    if (req.body.title) {
-      post.title = req.body.title
-    }
-
-    if (req.body.content) {
-      post.content = req.body.content
-    }
-
-    await post.save()
-    res.send(post)
-  } catch {
-    res.status(404)
-    res.send({ error: "Post doesn't exist" })
-  }
-})
-
-router.delete("/posts/:id", async (req, res) => {
-  try {
-    await Post.deleteOne({ _id: req.params.id })
-    res.status(204).send()
-  } catch {
-    res.status(404)
-    res.send({ error: "Post doesn't exist" })
-  }
-})
+//   // await post.save()
+//   // res.send(post)
+// })
 
 export default router
