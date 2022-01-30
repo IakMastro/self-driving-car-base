@@ -32,7 +32,7 @@ router.get('/sotiris', async (req, res) => {
   res.send({'front': sonar_front, 'back': sonar_back, 'speed': speed})
 })
 
-router.post('/sotiris', async (req, res) => {
+router.post('/sotiris/warning', async (req, res) => {
   redis_client.set('stop', 1)
 })
 
