@@ -32,8 +32,11 @@ router.get('/sotiris', async (req, res) => {
   res.send({'front': sonar_front, 'back': sonar_back, 'speed': speed})
 })
 
+router.post('/sotiris', async (req, res) => {
+  redis_client.set('stop', 1)
+})
+
 router.post('/camera', async (req, res) => {
-  console.log(req.body);
   redis_client.set('found', req.body.found)
   redis_client.set('go', req.body.go)
 
