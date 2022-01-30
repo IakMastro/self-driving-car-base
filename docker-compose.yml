@@ -5,6 +5,8 @@ services:
     build: app
     container_name: car-interface
     hostname: interface
+    ports:
+      - "8080:8080"
     volumes:
       - ./app:/app
     environment:
@@ -19,6 +21,8 @@ services:
     build: api
     container_name: rest
     hostname: rest
+    ports:
+      - "5000:5000"
     volumes:
       - ./api:/api
     depends_on:
@@ -55,6 +59,8 @@ services:
   mongoexpress:
     image: mongo-express:0.54.0
     container_name: mongo-express
+    ports:
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_OPTIONS_EDITORTHEME: "dracula"
       ME_CONFIG_MONDODB_URL: mongodb://dbuser:dbpass@mongo:27017

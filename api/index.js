@@ -1,27 +1,17 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import redis from 'redis'
 import cors from 'cors'
+import router from './routes.js'
 
-// Express configuration
-const app = express()
-const port = 5000
+mongoose
+	.connect("mongodb://dbuser:dbpass@mongo:27017/test?authSource=admin", {
+		"useNewUrlParser": true
+	})
+	.then(() => {
+		const app = express()
+		app.use(express.json())
+		app.use("/api", router)
+		app.use(cors())
 
-// Mongoose configuration
-const mongo_client = mongoose.createConnection('mongodb://dbuser:dbpass@mongo:27017')
-
-// Redis configuration
-// const redis_client = redis.createClient("redis://redis:6379/1")
-
-// Enable CORS from all the origins
-app.use(cors({
-	origin: ['http://interface']
-}))
-
-app.get("/ping", cors(), (req, res) => {
-	res.send("pong!")
-})
-
-app.listen(port, () => {
-	console.log(`Server has started at http://localhost:${port}`)
-})
+		app.listen(5000, () => console.log("REST has started!"))
+	})
