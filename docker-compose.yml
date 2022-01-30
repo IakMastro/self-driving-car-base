@@ -6,7 +6,7 @@ services:
     container_name: car-interface
     hostname: interface
     volumes:
-      - ./self-driving-car-interface:/app
+      - ./app:/app
     environment:
       NODE_APP: self-driving-car-interface
       NODE_ENV: development
