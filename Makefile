@@ -5,4 +5,4 @@ car:
 	docker-compose up -d camera sonar redis middleware
 
 datacenter:
-	docker-compose up -d fluentd mongo mongoexpress rest client interface
+	docker-compose up -d fluentd mongo mongoexpress rest client
