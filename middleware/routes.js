@@ -49,6 +49,19 @@ router.post('/camera', async (req, res) => {
   res.send(logs)
 })
 
+router.post('/sonar', async(req, res) => {
+  redis_client.set('sonar_front', req.body.sonar_front)
+  redis_client.set('sonar_back', req.body.sonar_back)
+})
+
+router.post('/speed', async(req, res) => {
+  redis_client.set('speed', req.body.speed)
+})
+
+router.post('accelerate', async(req, res) => {
+  redis_client.set('accelerate', req.body.accelerate)
+})
+
 router.get('/', async (req, res) => {
   res.send("Hello World!")
 })

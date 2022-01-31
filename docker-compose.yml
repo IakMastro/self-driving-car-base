@@ -91,7 +91,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - dbnet
+      - carnet
 
   fluentd:
     build: logs
@@ -104,6 +104,22 @@ services:
       - mongo
     networks:
       - dbnet
+
+  camera:
+    build: camera
+    container_name: camera
+    volumes:
+      - "./camera:/camera_api"
+    networks:
+      - carnet
+
+  sonar:
+    build: sonar
+    container_name: sonar
+    volumes:
+      - "./sonar:/sonar_api"
+    networks:
+      - carnet
 
 networks:
   datacenternet:
