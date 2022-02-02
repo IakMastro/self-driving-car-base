@@ -93,6 +93,6 @@ sonar:
       ipv4_address: 20.0.0.207
 
 networks:
-garage:
-  external: true
-  name: garage
+  garage:
+    external: true
+    name: garage
