@@ -14,7 +14,7 @@ services:
       - rest
     networks:
       garage:
-      ipv4_address: 20.0.0.200
+        ipv4_address: 20.0.0.200
 
 rest:
   build: api
@@ -50,8 +50,8 @@ mongoexpress:
   depends_on:
     - mongo
   networks:
-      garage:
-        ipv4_address: 20.0.0.203
+    garage:
+      ipv4_address: 20.0.0.203
 
 mongo:
   image: mongo
