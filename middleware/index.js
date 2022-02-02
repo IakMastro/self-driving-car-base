@@ -13,5 +13,5 @@ mongoose
 		app.use("/api", router)
 		app.use(cors())
 
-		app.listen(8351, () => console.log("Middleware has started!"))
+		app.listen(8351, "20.0.0.202", () => console.log("Middleware has started!"))
 	})

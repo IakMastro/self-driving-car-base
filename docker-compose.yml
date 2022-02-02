@@ -1,130 +1,98 @@
 version: '3.7'
 
 services:
-  client:
-    build: app
-    container_name: car-interface
-    hostname: interface
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./app:/app
-    environment:
-      NODE_APP: self-driving-car-interface
-      NODE_ENV: development
-    depends_on:
-      - rest
-    networks:
-      - datacenternet
+ client:
+   build: app
+   container_name: car-interface
+   hostname: interface
+   volumes:
+     - ./app:/app
+   environment:
+     NODE_APP: self-driving-car-interface
+     NODE_ENV: development
+   depends_on:
+     - rest
+   networks:
+     garage:
+      ipv4_address: 20.0.0.200
 
-  rest:
-    build: api
-    container_name: rest
-    hostname: rest
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./api:/api
-    depends_on:
-      - fluentd
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: log.rest
-    networks:
-      - dbnet
-      - datacenternet
+ rest:
+   build: api
+   container_name: rest
+   hostname: rest
+   volumes:
+     - ./api:/api
+   networks:
+     garage:
+      ipv4_address: 20.0.0.201
 
-  middleware:
-    build: middleware
-    container_name: middleware
-    hostname: middleware
-    volumes:
-      - ./middleware:/api
-    ports:
-      - "8351:8351"
-    depends_on:
-      - fluentd
-      - redis
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: log.rest
-    networks:
-      - dbnet
-      - carnet
+ middleware:
+   build: middleware
+   container_name: middleware
+   hostname: middleware
+   volumes:
+     - ./middleware:/api
+   depends_on:
+     - redis
+   networks:
+     garage:
+      ipv4_address: 20.0.0.202
 
-  mongoexpress:
-    image: mongo-express:0.54.0
-    container_name: mongo-express
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_OPTIONS_EDITORTHEME: "dracula"
-      ME_CONFIG_MONDODB_URL: mongodb://dbuser:dbpass@mongo:27017
-      ME_CONFIG_ENABLE_ADMIN: 'true'
-      ME_CONFIG_MONGODB_ADMINUSERNAME: dbuser
-      ME_CONFIG_MONGODB_ADMINPASSWORD: dbpass
-    depends_on:
-      - mongo
-    networks:
-      - dbnet
+ mongoexpress:
+   image: mongo-express:0.54.0
+   container_name: mongo-express
+   environment:
+     ME_CONFIG_MONGODB_OPTIONS_EDITORTHEME: "dracula"
+     ME_CONFIG_MONDODB_URL: mongodb://dbuser:dbpass@mongo:27017
+     ME_CONFIG_ENABLE_ADMIN: 'true'
+     ME_CONFIG_MONGODB_ADMINUSERNAME: dbuser
+     ME_CONFIG_MONGODB_ADMINPASSWORD: dbpass
+   depends_on:
+     - mongo
+   networks:
+      garage:
+        ipv4_address: 20.0.0.203
 
-  mongo:
-    image: mongo
-    container_name: mongo
-    volumes:
-      - ./mongo:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: dbuser
-      MONGO_INITDB_ROOT_PASSWORD: dbpass
-      MONGO_INITDB_DATABASE: cars
-    networks:
-      - dbnet
+ mongo:
+   image: mongo
+   container_name: mongo
+   volumes:
+     - /var/lib/self-drive-mongo:/data/db
+   environment:
+     MONGO_INITDB_ROOT_USERNAME: dbuser
+     MONGO_INITDB_ROOT_PASSWORD: dbpass
+     MONGO_INITDB_DATABASE: cars
+   networks:
+    garage:
+      ipv4_address: 20.0.0.204
 
-  redis:
-    image: redis
-    container_name: redis
-    hostname: redis
-    ports:
-      - "6379:6379"
-    networks:
-      - carnet
+ redis:
+   image: redis
+   container_name: redis
+   hostname: redis
+   networks:
+    garage:
+      ipv4_address: 20.0.0.205
 
-  fluentd:
-    build: logs
-    container_name: fluentd
-    ports:
-      - "24224:24224"
-    volumes:
-      - ./logs/conf:/fluentd/etc
-    depends_on:
-      - mongo
-    networks:
-      - dbnet
+ camera:
+   build: camera
+   container_name: camera
+   volumes:
+     - "./camera:/camera_api"
+   networks:
+    garage:
+      ipv4_address: 20.0.0.206
 
-  camera:
-    build: camera
-    container_name: camera
-    volumes:
-      - "./camera:/camera_api"
-    networks:
-      - carnet
-
-  sonar:
-    build: sonar
-    container_name: sonar
-    volumes:
-      - "./sonar:/sonar_api"
-    networks:
-      - carnet
+ sonar:
+   build: sonar
+   container_name: sonar
+   volumes:
+     - "./sonar:/sonar_api"
+   networks:
+         garage:
+      ipv4_address: 20.0.0.207
 
 networks:
-  datacenternet:
-    name: datacenternet
-  dbnet:
-    name: dbnet
-  carnet:
-    name: carnet
+ garage:
+   external: true
+   name: garage
