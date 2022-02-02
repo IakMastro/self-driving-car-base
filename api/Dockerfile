@@ -6,8 +6,10 @@ RUN apk add hping3 --update-cache --repository http://dl-cdn.alpinelinux.org/alp
 
 COPY package*.json /api/
 
+
 RUN npm install
 
 COPY . .
 
+EXPOSE 5000
 CMD ["npm", "run", "serve"]

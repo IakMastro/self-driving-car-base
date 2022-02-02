@@ -10,4 +10,5 @@ RUN npm install
 
 COPY . .
 
+EXPOSE 8351
 CMD ["npm", "run", "serve"]
