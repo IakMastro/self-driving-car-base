@@ -26,7 +26,7 @@ rest:
     garage:
       ipv4_address: 20.0.0.201
 
- middleware:
+middleware:
   build: middleware
   container_name: middleware
   hostname: middleware
