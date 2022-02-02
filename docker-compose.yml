@@ -16,81 +16,81 @@ services:
       garage:
         ipv4_address: 20.0.0.200
 
-rest:
-  build: api
-  container_name: rest
-  hostname: rest
-  volumes:
-    - ./api:/api
-  networks:
-    garage:
-      ipv4_address: 20.0.0.201
+  rest:
+    build: api
+    container_name: rest
+    hostname: rest
+    volumes:
+      - ./api:/api
+    networks:
+      garage:
+        ipv4_address: 20.0.0.201
 
-middleware:
-  build: middleware
-  container_name: middleware
-  hostname: middleware
-  volumes:
-    - ./middleware:/api
-  depends_on:
-    - redis
-  networks:
-    garage:
-      ipv4_address: 20.0.0.202
+  middleware:
+    build: middleware
+    container_name: middleware
+    hostname: middleware
+    volumes:
+      - ./middleware:/api
+    depends_on:
+      - redis
+    networks:
+      garage:
+        ipv4_address: 20.0.0.202
 
-mongoexpress:
-  image: mongo-express:0.54.0
-  container_name: mongo-express
-  environment:
-    ME_CONFIG_MONGODB_OPTIONS_EDITORTHEME: "dracula"
-    ME_CONFIG_MONDODB_URL: mongodb://dbuser:dbpass@mongo:27017
-    ME_CONFIG_ENABLE_ADMIN: 'true'
-    ME_CONFIG_MONGODB_ADMINUSERNAME: dbuser
-    ME_CONFIG_MONGODB_ADMINPASSWORD: dbpass
-  depends_on:
-    - mongo
-  networks:
-    garage:
-      ipv4_address: 20.0.0.203
+  mongoexpress:
+    image: mongo-express:0.54.0
+    container_name: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_OPTIONS_EDITORTHEME: "dracula"
+      ME_CONFIG_MONDODB_URL: mongodb://dbuser:dbpass@mongo:27017
+      ME_CONFIG_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_ADMINUSERNAME: dbuser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: dbpass
+    depends_on:
+      - mongo
+    networks:
+      garage:
+        ipv4_address: 20.0.0.203
 
-mongo:
-  image: mongo
-  container_name: mongo
-  volumes:
-    - /var/lib/self-drive-mongo:/data/db
-  environment:
-    MONGO_INITDB_ROOT_USERNAME: dbuser
-    MONGO_INITDB_ROOT_PASSWORD: dbpass
-    MONGO_INITDB_DATABASE: cars
-  networks:
-    garage:
-      ipv4_address: 20.0.0.204
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - /var/lib/self-drive-mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: dbuser
+      MONGO_INITDB_ROOT_PASSWORD: dbpass
+      MONGO_INITDB_DATABASE: cars
+    networks:
+      garage:
+        ipv4_address: 20.0.0.204
 
-redis:
-  image: redis
-  container_name: redis
-  hostname: redis
-  networks:
-    garage:
-      ipv4_address: 20.0.0.205
+  redis:
+    image: redis
+    container_name: redis
+    hostname: redis
+    networks:
+      garage:
+        ipv4_address: 20.0.0.205
 
-camera:
-  build: camera
-  container_name: camera
-  volumes:
-    - "./camera:/camera_api"
-  networks:
-    garage:
-      ipv4_address: 20.0.0.206
+  camera:
+    build: camera
+    container_name: camera
+    volumes:
+      - "./camera:/camera_api"
+    networks:
+      garage:
+        ipv4_address: 20.0.0.206
 
-sonar:
-  build: sonar
-  container_name: sonar
-  volumes:
-    - "./sonar:/sonar_api"
-  networks:
-    garage:
-      ipv4_address: 20.0.0.207
+  sonar:
+    build: sonar
+    container_name: sonar
+    volumes:
+      - "./sonar:/sonar_api"
+    networks:
+      garage:
+        ipv4_address: 20.0.0.207
 
 networks:
   garage:
