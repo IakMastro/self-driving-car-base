@@ -11,7 +11,10 @@ mongoose
 		const app = express()
 		app.use(express.json())
 		app.use("/api", router)
-		app.use(cors())
+		app.use(cors({
+			origin: "https://app.self-driving-car.project-garage.sexycoders.org/",
+			optionsSuccessStatus: "200"
+		}))
 
 		app.listen(5000, "20.0.0.201", () => console.log("REST has started!"))
 	})
